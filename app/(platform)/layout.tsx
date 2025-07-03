@@ -1,12 +1,17 @@
-const ClerkLayout = ({children}:{
+import { ClerkProvider } from "@clerk/nextjs";
+import {Toaster} from "sonner"
+
+const PlatformLayout = ({children}:{
     children:React.ReactNode;
 }) =>{
 
     return(
-        <div className="h-full flex ">
+        <ClerkProvider>
+             <Toaster/>
             {children}
-        </div>
+        </ClerkProvider>
+           
     )
 }
 
-export default ClerkLayout
+export default PlatformLayout
