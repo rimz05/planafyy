@@ -1,4 +1,4 @@
-
+  
 import {z} from "zod";
 
 export const CreatBoard = z.object({
@@ -8,5 +8,9 @@ export const CreatBoard = z.object({
         invalid_type_error:"Title is required"
     }).min(3,{
         message:"Title is too short"
-    })
+    }), 
+    image: z.string({
+        required_error:"Image is required",
+        invalid_type_error:"Image is required",
+    }),
 })

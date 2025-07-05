@@ -64,7 +64,7 @@ const NavItem = ({
         <AccordionTrigger
         onClick={()=> onExpand(organization.id)}
         className={
-            cn("flex w-full items-center gap-x-2 p-1.5 text-neutral-700 rounded-md hover:bg-neutral-500/10 transition text-star no-underline hover:no-underline",
+            cn("flex w-full items-center gap-x-2 p-1.5 left-0 text-neutral-700 rounded-md hover:bg-neutral-500/10 transition text-star no-underline hover:no-underline",
                 isActive && !isExpanded && "bg-sky-500/10 text-sky-700 "
             )}>
             <div className="flex items-center gap-x-2">
