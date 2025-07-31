@@ -4,6 +4,7 @@ import {ClerkProvider} from '@clerk/nextjs'
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +40,12 @@ export default function RootLayout({
   return (
     <ClerkProvider>
     <html lang="en">
+      <head>
+        <Script
+          src="https://checkout.razorpay.com/v1/checkout.js"
+          strategy="beforeInteractive"
+        />
+      </head>
       <body
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -50,3 +57,4 @@ export default function RootLayout({
   );
 }
 //heyyy dev
+
