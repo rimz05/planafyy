@@ -8,6 +8,8 @@ import { Hint } from "@/components/hint"
 import { FormPopover } from "@/components/form/form-popover"
 import Link from "next/link"
 import { Skeleton } from "@/components/ui/skeleton"
+import { getAvailableCount } from "@/lib/org-limit"
+import { MAX_FREE_BOARD } from "@/constants/boards"
 
 export const BoardList = async() =>{
   const {orgId } =await auth();
@@ -24,6 +26,9 @@ export const BoardList = async() =>{
       createdAt:"desc"
     }
   })
+
+  const availableCount = await getAvailableCount();
+
 
     return(
         <div className="space-y-4">
@@ -54,7 +59,7 @@ export const BoardList = async() =>{
               <p className="text-sm text-center">Create new Board</p>
               
               <span className="text-xs">
-                5 remaining
+                {`${MAX_FREE_BOARD - availableCount} remaining`}
               </span>
               <Hint
               sideOffset={40}

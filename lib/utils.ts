@@ -10,6 +10,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function absoluteUrl(path:string){
+  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`
+}
+
 
 // inputs- "p-2", "p-4", "bg-red-500", false && "text-sm", "text-lg"
 // clsx- "p-2 p-4 bg-red-500 text-lg"

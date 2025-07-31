@@ -7,6 +7,9 @@ import { db } from "@/lib/db";
 import { CopyList } from "./schema";
 import { InputType, ReturnType } from "./types";
 import { createSafeAction } from "@/lib/create-safe-action";
+import { list } from "unsplash-js/dist/methods/photos";
+import { createAuditLog } from "@/prisma/create-audit-log";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = await auth();
@@ -18,7 +21,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   const { id, boardId } = data;
 
   let copiedList;
-
   try {
     const listToCopy = await db.list.findFirst({
       where: {
@@ -64,6 +66,14 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         cards: true,
       },
     });
+
+    await createAuditLog({
+          entityTitle: copiedList.title,
+          entityId: copiedList.id,
+          entityType: ENTITY_TYPE.LIST,
+          action: ACTION.CREATE,
+        })
+
   } catch (error) {
     console.error("Copy list error:", error);
     return { error: "Failed to copy list" };

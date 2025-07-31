@@ -7,6 +7,8 @@ import { db } from "@/lib/db";
 import { DeleteList } from "./schema";
 import { InputType, ReturnType } from "./types";
 import { createSafeAction } from "@/lib/create-safe-action";
+import { createAuditLog } from "@/prisma/create-audit-log";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
 
 
 
@@ -31,6 +33,15 @@ const handler = async (data: InputType):  Promise<ReturnType> => {
         }
       },
       })
+
+      await createAuditLog({
+            entityTitle: list.title,
+            entityId: list.id,
+            entityType: ENTITY_TYPE.LIST,
+            action: ACTION.DELETE,
+          });
+
+
     } catch (error) {
     return { error: "Failed to delete" };
   }
